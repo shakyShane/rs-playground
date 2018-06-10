@@ -2,7 +2,7 @@ use Flag;
 use RunMode;
 use string::string_from;
 
-pub fn get_run_mode(user_input: &Vec<&str>) -> Flag<RunMode> {
+pub fn get_run_mode(user_input: &Vec<&str>) -> Result<Flag<RunMode>, String> {
 
     let keys = &vec!["run_mode", "runmode", "run-mode", "runMode"];
     let default = "execute";
@@ -11,10 +11,10 @@ pub fn get_run_mode(user_input: &Vec<&str>) -> Flag<RunMode> {
         _ => RunMode::Execute,
     };
 
-    Flag {
+    Ok(Flag {
         value,
         name: "run_mode".into(),
         description: "the run mode, can be either execute or dry-run".into(),
-    }
+    })
 }
 

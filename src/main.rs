@@ -53,27 +53,32 @@ fn main() {
 #[test]
 fn test_main() {
 
-    let mut flags = create_program_flags(&vec!["--run_mode", "dryRun", "-q"]);
+    let mut flags = create_program_flags(&vec!["--run_mode", "dryRun", "-q", "--cwd", "/users/kittiens"]);
 
-    // just pulling the values in a type-safe way
-    assert_eq!(*flags.user.value(), "www-data".to_string());
-    assert_eq!(*flags.quiet.value(), true);
-
-    // ability to match on the type
-    match flags.user.value().as_ref() {
-        "root" => println!("Nope, not running as root"),
-        _a =>  println!("running as {}", _a)
+    match flags {
+        Ok(program_flags) => println!("{:#?}", program_flags),
+        Err(msg) => eprintln!("error msg = {}", msg)
     }
 
-    match *flags.run_mode.value() {
-        RunMode::Execute => println!("run mode is execute"),
-        RunMode::DryRun => println!("run mode is dryrun"),
-    }
-
-    assert_eq!(*flags.run_mode.value(), RunMode::DryRun);
-
-
-    let processed = post_process(&mut flags);
-
-    println!("{:#?}", processed);
+//    // just pulling the values in a type-safe way
+//    assert_eq!(*flags.user.value(), "www-data".to_string());
+//    assert_eq!(*flags.quiet.value(), true);
+//
+//    // ability to match on the type
+//    match flags.user.value().as_ref() {
+//        "root" => println!("Nope, not running as root"),
+//        _a =>  println!("running as {}", _a)
+//    }
+//
+//    match *flags.run_mode.value() {
+//        RunMode::Execute => println!("run mode is execute"),
+//        RunMode::DryRun => println!("run mode is dryrun"),
+//    }
+//
+//    assert_eq!(*flags.run_mode.value(), RunMode::DryRun);
+//
+//
+//    let processed = post_process(&mut flags);
+//
+//    println!("{:#?}", processed);
 }
