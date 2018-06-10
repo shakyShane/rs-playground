@@ -1,8 +1,4 @@
 use std::fmt;
-use std::path::PathBuf;
-use std::env::current_dir;
-use string::string_from;
-use bool::bool_from;
 use flags::create_program_flags;
 use flags::post_process;
 
