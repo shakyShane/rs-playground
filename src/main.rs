@@ -10,8 +10,6 @@ use std::collections::HashMap;
 use std::thread::JoinHandle;
 use std::time::Duration;
 
-//mod par;
-
 #[derive(Debug, Clone)]
 struct Task {
     id: usize,
@@ -78,11 +76,7 @@ fn process_group(
                 }
             }
             TaskItem::Group((items, run_mode)) => {
-                let mut items_clone = Vec::new();
-                for i in items {
-                    items_clone.push(i.clone());
-                }
-                process_group(items_clone, run_mode.clone(), tcopy);
+                process_group(items, run_mode.clone(), tcopy);
             }
         }
     }
