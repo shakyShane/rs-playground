@@ -31,42 +31,36 @@ fn main() {
 
     let mut tasks: HashMap<usize, Task> = HashMap::new();
 
-    tasks.insert(0, Task{id: 0, duration: 1});
     tasks.insert(1, Task{id: 1, duration: 1});
     tasks.insert(2, Task{id: 2, duration: 1});
     tasks.insert(3, Task{id: 3, duration: 1});
     tasks.insert(4, Task{id: 4, duration: 1});
     tasks.insert(5, Task{id: 5, duration: 1});
+    tasks.insert(6, Task{id: 6, duration: 1});
 
     let schedule = vec![
-        TaskItem::Single(0),
         TaskItem::Single(1),
+        TaskItem::Single(2),
         TaskItem::Group((vec![
-            TaskItem::Single(2),
             TaskItem::Single(3),
+            TaskItem::Single(4),
             TaskItem::Group((vec![
-                TaskItem::Single(4),
                 TaskItem::Single(5),
-            ], RunMode::Parallel))
-        ], RunMode::Parallel)),
+                TaskItem::Single(6),
+            ], RunMode::Series))
+        ], RunMode::Series)),
     ];
 
-    let top_level_schedule = Arc::new(schedule);
     let arc_tasks = Arc::new(tasks);
 
-    let mut items_clone = Vec::new();
-    for i in top_level_schedule.iter() {
-        items_clone.push(i.clone());
-    }
-
-    process_group(items_clone, RunMode::Series, arc_tasks);
+    process_group(schedule, RunMode::Series, arc_tasks);
 }
 
 
 fn process_group(
     items: Vec<TaskItem>,
     run_mode: RunMode,
-    tasks: Arc<HashMap<usize, Task>>) -> JoinHandle<()> {
+    tasks: Arc<HashMap<usize, Task>>) {
 
     let mut hs: Vec<JoinHandle<()>> = Vec::new();
 
@@ -88,14 +82,7 @@ fn process_group(
                 for i in items {
                     items_clone.push(i.clone());
                 }
-                match run_mode {
-                    RunMode::Series => {
-                        process_group(items_clone, run_mode.clone(), tcopy).join();
-                    }
-                    RunMode::Parallel => {
-                        hs.push(process_group(items_clone, run_mode.clone(), tcopy));
-                    }
-                }
+                process_group(items_clone, run_mode.clone(), tcopy);
             }
         }
     }
@@ -105,12 +92,11 @@ fn process_group(
             for h in hs {
                 h.join().unwrap();
             }
-            thread::spawn(move || {})
         }
         RunMode::Series => {
-            thread::spawn(move || {})
+            // no-op
         }
-    }
+    };
 }
 
 fn process_item(item_id: usize, tasks: Arc<HashMap<usize, Task>>) -> JoinHandle<()> {
