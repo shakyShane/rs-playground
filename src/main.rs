@@ -13,6 +13,8 @@ use std::sync::mpsc::Sender;
 use std::fmt;
 use std::fmt::Formatter;
 
+mod archy;
+
 #[derive(Debug)]
 struct Task {
     id: usize,
@@ -56,31 +58,32 @@ type ItemID = usize;
 
 fn main() {
 
-    let mut tasks: HashMap<usize, Task> = HashMap::new();
-    tasks.insert(1, Task{id: 1, duration: 1});
-    tasks.insert(2, Task{id: 2, duration: 1});
-    tasks.insert(3, Task{id: 3, duration: 1});
-    tasks.insert(4, Task{id: 4, duration: 1});
-    tasks.insert(5, Task{id: 5, duration: 1});
-
-    let schedule = vec![
-        TaskItem::Single(1, 101),
-        TaskItem::Single(2, 102),
-//        TaskItem::Group((vec![
-//            TaskItem::Single(3, 103),
-//            TaskItem::Single(4, 104),
-//        ], RunMode::Series), 105),
-//        TaskItem::Single(5, 106),
-    ];
-
-    let tasks = Arc::new(tasks);
-    let (tx, rx) = mpsc::channel();
-
-    process_group(schedule, RunMode::Series, tasks, tx);
-
-    for msg in rx {
-        println!("{}", msg);
-    }
+//    let mut tasks: HashMap<usize, Task> = HashMap::new();
+//    tasks.insert(1, Task{id: 1, duration: 1});
+//    tasks.insert(2, Task{id: 2, duration: 1});
+//    tasks.insert(3, Task{id: 3, duration: 1});
+//    tasks.insert(4, Task{id: 4, duration: 1});
+//    tasks.insert(5, Task{id: 5, duration: 1});
+//
+//    let schedule = vec![
+//        TaskItem::Single(1, 101),
+//        TaskItem::Single(2, 102),
+////        TaskItem::Group((vec![
+////            TaskItem::Single(3, 103),
+////            TaskItem::Single(4, 104),
+////        ], RunMode::Series), 105),
+////        TaskItem::Single(5, 106),
+//    ];
+//
+//    let tasks = Arc::new(tasks);
+//    let (tx, rx) = mpsc::channel();
+//
+//    process_group(schedule, RunMode::Series, tasks, tx);
+//
+//    for msg in rx {
+//        println!("{}", msg);
+//    }
+//    archy::archy();
 }
 
 fn process_group(items: Vec<TaskItem>, run_mode: RunMode, tasks: Tasks, tx: Sender<TaskReport>) -> JoinHandle<()> {
