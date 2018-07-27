@@ -21,17 +21,39 @@ struct TaskItem {
     id: usize,
     duration_secs: u64
 }
+
+impl TaskItem {
+    pub fn new(id: usize) -> Task {
+        Task::Item(TaskItem{
+            id,
+            duration_secs: 1,
+        })
+    }
+}
+
 #[derive(Debug, Clone)]
 struct TaskGroup {
     id: usize,
     items: Vec<Task>,
     run_mode: RunMode
 }
+
+impl TaskGroup {
+    pub fn new(id: usize, run_mode: RunMode, items: Vec<Task>) -> Task {
+        Task::Group(TaskGroup{
+            id,
+            items,
+            run_mode,
+        })
+    }
+}
+
 #[derive(Debug, Clone)]
 enum Task {
     Item(TaskItem),
     Group(TaskGroup)
 }
+
 #[derive(Debug)]
 enum ReportKind {
     Begin,
@@ -46,29 +68,15 @@ struct Report {
 
 type MsgSender = Sender<Report>;
 
-pub fn par() {
+pub fn exec() {
 
-    let t = Task::Group(TaskGroup{
-        run_mode: RunMode::Series,
-        id: 100,
-        items: vec![
-            Task::Item(TaskItem{id: 101, duration_secs: 1}),
-            Task::Item(TaskItem{id: 102, duration_secs: 1}),
-//            Task::Group(TaskGroup{
-//                id:"02".into(),
-//                run_mode: RunMode::Parallel,
-//                items: vec![
-//                    Task::Item(TaskItem{id:"02-01".into(), duration: 1}),
-//                    Task::Item(TaskItem{id:"02-02".into(), duration: 1}),
-//                ]
-//            }),
-        ]
-    });
-
+    let g = TaskGroup::new(0, RunMode::Series, vec![
+        TaskItem::new(101),
+        TaskItem::new(102),
+    ]);
 
     let (tx, rx) = mpsc::channel();
-    process(t, &tx);
-//    println!("{:#?}", t);
+    process(g, &tx);
 
     drop(tx);
 
@@ -76,32 +84,9 @@ pub fn par() {
         println!("id = {}, kind = {:?}", msg.id, msg.kind);
     }
 
-
-
-//    let tasks = vec![
-//        (4, "1"),
-//        (4, "2"),
-//        (2, "3"),
-//        (2, "4"),
-//    ];
-//    for (_i, (secs, value)) in tasks.into_iter().enumerate() {
-//        let tx1 = tx.clone();
-//        thread::spawn(move || {
-//            println!("Running for {} secs", secs);
-//            thread::sleep(Duration::rom_secs(secs));
-//            tx1.send(value).unwrap();
-//        });
-//    }
-//
-//    drop(tx);
-//
-//    for x in rx {
-//        println!("{:?}", x);
-//    }
 }
 
 fn process_item(g: TaskItem, tx: &MsgSender) -> JoinHandle<()> {
-    println!("saw process_item");
     let tx1 = tx.clone();
     thread::spawn(move || {
         let begin = Report{id: g.id, kind: ReportKind::Begin};
@@ -113,7 +98,6 @@ fn process_item(g: TaskItem, tx: &MsgSender) -> JoinHandle<()> {
 }
 
 fn process_group(g: TaskGroup, tx: &MsgSender) -> JoinHandle<()> {
-    println!("saw process_group, run_mode = {:?}", g.run_mode);
     let tx1 = tx.clone();
     thread::spawn(move || {
         for item in g.items.into_iter() {
