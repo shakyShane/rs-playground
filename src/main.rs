@@ -11,7 +11,7 @@ use regex::Regex;
 trait Updater {
     type Item;
     type Options;
-    fn apply(self, opts: &Self::Item, items: Vec<Self::Item>) -> String;
+    fn apply(self, opts: &Self::Options, items: Vec<Self::Item>) -> String;
 }
 
 ///
@@ -83,6 +83,6 @@ fn replace_host(input: &str, opts: &MyOpts) -> String {
     Regex::new(&opts.target).unwrap().replace_all(&input, opts.next.as_str()).to_string()
 }
 
-fn replace_scheme(input: &str, opts: &MyOpts) -> String {
+fn replace_scheme(input: &str, _opts: &MyOpts) -> String {
     Regex::new("https://").unwrap().replace_all(&input, "//").to_string()
 }
