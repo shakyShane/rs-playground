@@ -23,6 +23,6 @@ pub fn run () {
 
     for m in v.iter() {
         let output = m.before();
-        println!("{:?}", output);
+        assert_eq!(output, Err(String::from("Ooops!")));
     }
 }
