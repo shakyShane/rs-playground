@@ -13,6 +13,7 @@ mod trait_obj;
 mod serialize;
 mod matching_tuple;
 mod serde_yaml_parse;
+mod hash_map;
 
 fn main() {
     dyn_arg::run();
@@ -21,4 +22,5 @@ fn main() {
     serialize::run();
     matching_tuple::run();
     serde_yaml_parse::run();
+    hash_map::run();
 }
