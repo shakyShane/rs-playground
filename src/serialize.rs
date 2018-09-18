@@ -1,5 +1,4 @@
 extern crate serde_json;
-extern crate serde_derive;
 
 use std::sync::Mutex;
 
