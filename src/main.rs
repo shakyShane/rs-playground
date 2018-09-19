@@ -14,6 +14,7 @@ mod serialize;
 mod matching_tuple;
 mod serde_yaml_parse;
 mod hash_map;
+mod read_file;
 
 fn main() {
     dyn_arg::run();
@@ -23,4 +24,5 @@ fn main() {
     matching_tuple::run();
     serde_yaml_parse::run();
     hash_map::run();
+    read_file::run();
 }
