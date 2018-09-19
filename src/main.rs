@@ -1,11 +1,12 @@
 #![allow(unused_variables)]
 #![allow(dead_code)]
+#![allow(unused_imports)]
 
 #[macro_use]
 extern crate serde_derive;
-
 extern crate serde_yaml;
 extern crate serde_json;
+extern crate serde;
 
 mod dyn_arg;
 mod compose;
