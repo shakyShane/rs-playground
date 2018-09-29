@@ -16,6 +16,7 @@ mod matching_tuple;
 mod serde_yaml_parse;
 mod hash_map;
 mod read_file;
+mod from_file_trait;
 
 fn main() {
     dyn_arg::run();
