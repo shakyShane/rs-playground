@@ -17,6 +17,7 @@ mod serde_yaml_parse;
 mod hash_map;
 mod read_file;
 mod from_file_trait;
+mod into;
 
 fn main() {
     dyn_arg::run();
@@ -27,4 +28,5 @@ fn main() {
     serde_yaml_parse::run();
     hash_map::run();
     read_file::run();
+    into::run();
 }
