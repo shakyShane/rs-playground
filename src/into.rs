@@ -48,5 +48,5 @@ pub fn run() {
 }
 
 fn test_fn(input: impl Into<String>) {
-    println!("printed={}", input.into());
+//    println!("printed={}", input.into());
 }

@@ -9,6 +9,7 @@ extern crate serde_json;
 extern crate serde;
 
 mod dyn_arg;
+mod fold;
 mod compose;
 mod trait_obj;
 mod serialize;
@@ -29,4 +30,5 @@ fn main() {
     hash_map::run();
     read_file::run();
     into::run();
+    fold::run();
 }
