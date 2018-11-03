@@ -1,4 +1,4 @@
-pub fn run() {
+pub fn main() {
     let cmp = compose(one, two);
     let output = cmp(1);
     assert_eq!(output, 4);

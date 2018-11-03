@@ -43,7 +43,7 @@ impl M2PresetOptions {
     }
 }
 
-pub fn run() {
+pub fn main() {
     let input = r#"
         presets:
           - name: static

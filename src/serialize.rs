@@ -6,7 +6,7 @@ struct MyStruct<'a> {
     items: Vec<&'a str>
 }
 
-pub fn run() {
+pub fn main() {
 
     //
     // Use a Mutex to 'wrap' this data in a way that allows

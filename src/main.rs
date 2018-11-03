@@ -21,14 +21,14 @@ mod from_file_trait;
 mod into;
 
 fn main() {
-    dyn_arg::run();
-    compose::run();
-    trait_obj::run();
-    serialize::run();
-    matching_tuple::run();
-    serde_yaml_parse::run();
-    hash_map::run();
-    read_file::run();
-    into::run();
-    fold::run();
+    dyn_arg::main();
+    compose::main();
+    trait_obj::main();
+    serialize::main();
+    matching_tuple::main();
+    serde_yaml_parse::main();
+    hash_map::main();
+    read_file::main();
+    into::main();
+    fold::main();
 }

@@ -17,7 +17,7 @@ struct Animal {
 impl Speak for Person { fn greet(&self) -> String { format!( "hi {}", self.name.to_string()) }}
 impl Speak for Animal { fn greet(&self) -> String { format!( "hi {}", self.name.to_string()) }}
 
-pub fn run() {
+pub fn main() {
     let mut m: HashMap<usize, Box<Speak>> = HashMap::new();
 
     let items = vec!["person", "animal", "person"];

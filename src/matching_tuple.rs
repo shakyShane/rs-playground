@@ -1,4 +1,4 @@
-pub fn run() {
+pub fn main() {
     let match1 = matcher(1, "120");
     let match2 = matcher(1, "240");
     let match3 = matcher(1, "360");

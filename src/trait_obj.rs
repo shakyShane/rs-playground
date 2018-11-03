@@ -28,7 +28,7 @@ fn get_middlewares<'a>() -> Vec<&'a Middleware<AppState>> {
     vec![&MyMiddleware1 {}, &MyMiddleware2 {}]
 }
 
-pub fn run() {
+pub fn main() {
     let mws = get_middlewares();
     let output: Vec<MwResult> = mws.iter().map(|mw| mw.before()).collect();
     assert_eq!(output[0], Err(String::from("Ooops!")));

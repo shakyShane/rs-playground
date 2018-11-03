@@ -26,7 +26,7 @@ pub fn collect<'a>(items: &'a mut Vec<Node>, children: &Vec<Item>) -> &'a mut Ve
     })
 }
 
-pub fn run() {
+pub fn main() {
 
     // a dummy input, just something that has nested children
     let children = vec![

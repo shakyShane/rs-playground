@@ -26,7 +26,7 @@ impl From<Person> for String {
     }
 }
 
-pub fn run() {
+pub fn main() {
     let my_str = "hello";
     let my_string = "hello2".to_string();
 

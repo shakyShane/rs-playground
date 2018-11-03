@@ -65,7 +65,7 @@ impl Regex {
     }
 }
 
-pub fn run() {
+pub fn main() {
     let r1 = Regex::replace("a", "A");
     let r2 = Regex::replace("b", |input: &Matches| input.text.to_uppercase());
 

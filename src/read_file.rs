@@ -14,7 +14,7 @@ struct Person {
 
 impl FromFile for Person {}
 
-pub fn run() {
+pub fn main() {
 
     let p2 = Person::from_yml_file("tests/fixtures/conf.yaml");
     assert_eq!(p2.unwrap(), Person{
