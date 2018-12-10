@@ -19,6 +19,7 @@ mod hash_map;
 mod read_file;
 mod from_file_trait;
 mod into;
+mod collect_collections;
 
 fn main() {
     dyn_arg::main();
@@ -31,4 +32,5 @@ fn main() {
     read_file::main();
     into::main();
     fold::main();
+    collect_collections::main();
 }
