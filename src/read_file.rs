@@ -4,7 +4,7 @@ use std::error::Error;
 use std::path::PathBuf;
 use std::fs::File;
 use std::io::prelude::*;
-use from_file_trait::FromFile;
+use from_file::FromFile;
 
 #[derive(Eq, PartialEq, Debug, Deserialize)]
 struct Person {
